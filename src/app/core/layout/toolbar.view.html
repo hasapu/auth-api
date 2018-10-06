@@ -1,0 +1,17 @@
+<mat-toolbar>
+  <span>Auth Test</span>
+  <span fxFlex="1 1 auto"></span>
+  <span>
+    <button *ngIf="!(_authService.isAuthenticate()===false)" routerLink="/loan" mat-button>
+      Loan
+    </button>
+  </span>
+  <span>
+    <button *ngIf="!(_authService.isAuthenticate()===false)" (click)="logout()" mat-icon-button>
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+    <button *ngIf="!(_authService.isAuthenticate()===true)" mat-button routerLink="/login">
+      Login
+    </button>
+  </span>
+</mat-toolbar>

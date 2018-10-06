@@ -1,0 +1,31 @@
+<div fxLayout="column" fxFlex="">
+  <div class="container" style="margin-top: 100px">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th scope="col">Application ID</th>
+        <th scope="col">Application Date</th>
+        <th scope="col">Application Number</th>
+        <th scope="col">Application Type</th>
+        <th scope="col">Application Purpose</th>
+        <th scope="col">Company Name</th>
+        <th scope="col">Application Amount</th>
+        <th scope="col">Application Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of allData">
+        <td>{{data.appId}}</td>
+        <td>{{data.appDate*1000 | date}}</td>
+        <td>{{data.appNo}}</td>
+        <td>{{data.appType}}</td>
+        <td>{{data.appPurpose}}</td>
+        <td>{{data.companyName}}</td>
+        <td>Rp. {{data.appAmount | number }}</td>
+        <td>{{data.appStatus}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn btn-primary" [routerLink]="['/loan/create']">Create</button>
+</div>
