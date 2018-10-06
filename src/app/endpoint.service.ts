@@ -5,18 +5,6 @@ import { map, catchError,  } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 const url = environment.url;
-const authData =  JSON.parse(localStorage.getItem('authData'));
-
-let httpOptions = {}
-
-if (authData) {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': authData.session
-    })
-  };
-}
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +14,20 @@ export class EndpointService {
     private _http: HttpClient
   ) { }
 
-  getData(path) {
-    return this._http.get(url + path, httpOptions)
+  authHeader() {
+    const authData =  JSON.parse(localStorage.getItem('authData'));
+    if (authData) {
+      return {
+        headers: new HttpHeaders({
+            'Content-Type':  'application/json',
+            'Authorization': authData.session
+        })
+      };
+    }
+  }
+
+  async  getData(path) {
+    return this._http.get(url + path, await this.authHeader() )
       .pipe(
         map(result => result),
         catchError(err => throwError(err)))
@@ -36,8 +36,8 @@ export class EndpointService {
       .catch(err => err);
   }
 
-  postData(path, data) {
-    return this._http.post(url + path, data, httpOptions)
+  async postData(path, data) {
+    return this._http.post(url + path, data, await this.authHeader())
       .pipe(
         map(result => result),
         catchError(err => throwError(err)))
