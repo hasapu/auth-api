@@ -12,7 +12,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { LoanComponent } from './loan/loan.component';
-import {AuthGuard} from './core/auth/auth.guard';
 import { LoanCreateComponent } from './loan/create/loan.create.component';
 import {NgxCurrencyModule} from 'ngx-currency';
 
@@ -36,7 +35,7 @@ import {NgxCurrencyModule} from 'ngx-currency';
     HttpClientModule,
     NgxCurrencyModule
   ],
-  providers: [AuthGuard],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

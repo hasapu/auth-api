@@ -4,7 +4,6 @@ import {MaterialModule} from '../material.module';
 import {IconsModule} from '../icon.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {DashboardComponent} from './dashboard/dashboard.component';
-import {AuthGuard} from './auth/auth.guard';
 
 
 @NgModule({
@@ -17,8 +16,7 @@ import {AuthGuard} from './auth/auth.guard';
     IconsModule,
     ReactiveFormsModule,
     FormsModule
-  ],
-  providers: [AuthGuard]
+  ]
 })
 
 export class CoreModule {}
