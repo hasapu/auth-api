@@ -4,6 +4,7 @@ import {HttpHeaders, HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
 import {throwError} from 'rxjs';
+import {EndpointService} from '../../endpoint.service';
 
 const url = environment.url;
 
@@ -20,7 +21,8 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private _authHeader: EndpointService
   ) { }
 
   public isAuthenticate(): boolean {
@@ -38,10 +40,20 @@ export class AuthService {
       .catch(err => err);
   }
 
-  logout(onLogout: boolean) {
-    if (onLogout) {
-      this.router.navigate(['login'])
-      localStorage.removeItem('authData');
+  async logout() {
+    const logout =  await this._http.get(url + '/logout', await this._authHeader.authHeader())
+        .pipe(
+            map(result => result),
+            catchError(err => throwError(err)))
+        .toPromise()
+        .then(response => response)
+        .catch(err => err);
+
+    if (logout.status === 'success') {
+        this.router.navigate(['login'])
+        localStorage.removeItem('authData');
+    } else {
+      console.log(logout.message);
     }
   }
 }

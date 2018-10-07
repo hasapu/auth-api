@@ -11,7 +11,7 @@ export class ToolbarComponent implements OnInit{
   login: boolean;
   @Output() onLogout: EventEmitter<any> = new EventEmitter()
   constructor(
-    private _authService: AuthService
+    private _authService: AuthService,
   ) {}
   ngOnInit() {
     this.authData = JSON.parse(localStorage.getItem('authData' ));
@@ -22,6 +22,6 @@ export class ToolbarComponent implements OnInit{
     }
   }
   logout(): void {
-    this._authService.logout(true);
+    this._authService.logout();
   }
 }
