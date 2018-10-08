@@ -1,15 +1,20 @@
-import { RouterModule, Routes} from '@angular/router';
-import {ModuleWithProviders} from '@angular/core';
-import {LoginComponent} from './auth/login/login.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {AuthGuard} from './auth/auth.guard';
+import { ModuleWithProviders }  from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { AuthGuard } from './auth/auth.guard';
+
+import { LoginComponent }     from './auth/login/login.component';
+import { RegisterComponent }  from './auth/register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard',
-    component: DashboardComponent,
+  { path: 'register', component: RegisterComponent },
+  {
+    path       : 'dashboard',
+    component  : DashboardComponent,
     canActivate: [AuthGuard]
   }
-]
+];
 
-export const CoreRouting: ModuleWithProviders = RouterModule.forRoot(routes)
+export const CoreRouting: ModuleWithProviders = RouterModule.forRoot(routes);

@@ -1,0 +1,8 @@
+mat-form-field,
+mat-radio-group {
+	display: block;
+}
+
+mat-radio-button:not(:last-child) {
+	margin-right: 20px;
+}

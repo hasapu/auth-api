@@ -1,0 +1,138 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  <div class="container" style="margin-top:200px">
+    <mat-card style="width:400px;padding:0">
+      <mat-card-header style="background-color:green;height:50px">
+        <mat-card-title style="color:white;font-weight:bold;font-size:25px">Register</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content style="padding:20px">
+        <mat-progress-spinner
+          mode="indeterminate"
+          value="50"
+          *ngIf="isSpinnerLoading"
+          style="margin:0 auto"></mat-progress-spinner>
+
+        <form *ngIf="!isSpinnerLoading" [formGroup]="registerForm" (ngSubmit)="onRegister()" novalidate>
+          <div class="form-group">
+            <label>Bagaimana kami memanggil anda?*</label>
+
+            <mat-radio-group formControlName="suffix">
+              <mat-radio-button
+                *ngFor="let suffixField of suffixFields"
+                [value]="suffixField.value">
+                {{ suffixField.label }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="form-group">
+            <label>Nama lengkap*</label>
+
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                formControlName="fullName"
+                placeholder="Masukkan nama lengkap"
+                type="text">
+              <mat-icon matSuffix style="color:green" *ngIf="f.fullName.valid">check</mat-icon>
+              <mat-error *ngIf="f.fullName.invalid && (f.fullName.dirty || f.fullName.touched || isSubmitted)">
+                {{ getErrorMessages('fullName') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <label>Apakah anda bekerja di salah satu perusahaan ini?*</label>
+
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="company" placeholder="Pilih perusahaan">
+                <mat-option>None</mat-option>
+                <mat-option
+                  *ngFor="let companyField of companyFields"
+                  [value]="companyField">
+                  {{ companyField }}
+                </mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="f.company.invalid && (f.company.dirty || f.company.touched || isSubmitted)">
+                {{ getErrorMessages('company') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <label>Masukkan email/ponsel anda*</label>
+
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                formControlName="username"
+                placeholder="Email / ponsel"
+                [type]="isPhoneNumber ? 'text' : 'email'"
+                [email]="!isPhoneNumber"
+                (change)="onCheckUsername($event)">
+              <mat-icon matSuffix style="color:green" *ngIf="f.username.valid">check</mat-icon>
+              <mat-error *ngIf="f.username.invalid && (f.username.dirty || f.username.touched || isSubmitted)">
+                {{ getErrorMessages('username') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <label>Kata kunci*</label>
+
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                formControlName="password"
+                placeholder="Masukkan kata kunci"
+                [type]="hiddenPassword ? 'password' : 'text'"
+                (change)="onCheckPassword($event)">
+              <mat-icon
+                matSuffix
+                (click)="hiddenPassword = !hiddenPassword">
+                {{ hiddenPassword ? 'visibility' : 'visibility_off'}}
+              </mat-icon>
+              <mat-error *ngIf="f.password.invalid && (f.password.dirty || f.password.touched || isSubmitted)">
+                {{ getErrorMessages('password') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <label>Konfirmasi kata kunci*</label>
+
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                formControlName="passwordConfirm"
+                placeholder="Konfirmasi kata kunci"
+                [type]="hiddenPassword ? 'password' : 'text'"
+                [required]="f.password.valid"
+                (change)="onCheckPasswordConfirm($event)">
+              <mat-icon
+                matSuffix
+                (click)="hiddenPassword = !hiddenPassword">
+                {{ hiddenPassword ? 'visibility' : 'visibility_off'}}
+              </mat-icon>
+              <mat-error *ngIf="f.passwordConfirm.invalid && (f.passwordConfirm.dirty || f.passwordConfirm.touched || isSubmitted)">
+                {{ getErrorMessages('passwordConfirm') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-checkbox formControlName="terms">
+              <span>
+                Saya telah membaca dan setuju atas <br>
+                <strong><u>Kebijakan Privasi dan Syarat Ketentuan</u></strong>
+              </span>
+            </mat-checkbox>
+          </div>
+
+          <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
