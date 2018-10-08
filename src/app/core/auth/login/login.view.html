@@ -19,10 +19,8 @@
           <!--</div>-->
           <div>
             <mat-form-field appearance="outline" class="login-input" style="width: 270px;">
-              <input type="password" formControlName="password" style="font-size: 16px;" matInput placeholder="*******"/>
-              <!--<mat-icon matSuffix [style.color]="f.username.valid? 'green' : 'red'" *ngIf="f.username.value">{{f.username.valid ? 'check_circle' : 'cancel'}}</mat-icon>-->
-              {{showPassword}}
-              <mat-icon matSuffix (click)="showPassword = !showPassword" style="cursor: pointer">remove_red_eye</mat-icon>
+              <input [type]="showPassword ? 'text' : 'password'"  formControlName="password" style="font-size: 16px;" matInput placeholder="*******"/>
+              <mat-icon matSuffix (click)="showPassword = !showPassword" style="cursor: pointer">{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </mat-form-field>
 
           </div>
